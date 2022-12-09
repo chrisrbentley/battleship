@@ -7,10 +7,19 @@ const Ship = (length) => {
     shipArr[i] = undefined;
   }
 
+  const isSunk = () => {
+    if (hits >= length) {
+      sunk = true;
+      console.log('Ship is sunk');
+    }
+    return sunk;
+  };
+
   const hit = (cords) => {
     shipArr[cords] = 'X';
     hits += 1;
-    return { shipArr, hits };
+    isSunk();
+    return { shipArr, hits, sunk };
   };
 
   return {
@@ -20,8 +29,5 @@ const Ship = (length) => {
     // hits, // maybe does not need to be exposed. (???)
   };
 };
-
-/* const shipOne = Ship(3);
-console.log(shipOne); */
 
 export { Ship };
