@@ -1,22 +1,27 @@
 const Ship = (length) => {
   let hits = 0;
-  let shipArr = new Array(length);
+  let sunk = false;
+  const shipArr = new Array(length); // if breaks later, use let
+
   for (let i = 0; i < shipArr.length; i += 1) {
     shipArr[i] = undefined;
   }
+
   const hit = (cords) => {
     shipArr[cords] = 'X';
-    return shipArr;
+    hits += 1;
+    return { shipArr, hits };
   };
 
-  return { length, shipArr, hit, hits };
+  return {
+    // length, // same as hits
+    shipArr,
+    hit,
+    // hits, // maybe does not need to be exposed. (???)
+  };
 };
 
-/* const shipTwo = Ship(8);
-
-shipTwo.hit(2);
-console.log(shipTwo);
-console.log(shipTwo.shipArr.length);
-console.log(typeof shipTwo.hits); */
+/* const shipOne = Ship(3);
+console.log(shipOne); */
 
 export { Ship };
