@@ -3,14 +3,11 @@ const Ship = (length) => {
   let sunk = false;
   const shipArr = new Array(length); // if breaks later, use let
 
-  for (let i = 0; i < shipArr.length; i += 1) {
-    shipArr[i] = undefined;
-  }
+  shipArr.fill(`Ship ${length}`);
 
   const isSunk = () => {
     if (hits >= length) {
       sunk = true;
-      console.log('Ship is sunk');
     }
     return sunk;
   };
@@ -26,8 +23,10 @@ const Ship = (length) => {
     // length, // same as hits
     shipArr,
     hit,
+    sunk, // maybe don't need this
     // hits, // maybe does not need to be exposed. (???)
   };
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export { Ship };

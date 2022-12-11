@@ -8,7 +8,7 @@ test('Factory function to create ship object with correct array length.', () => 
 test('should mark correct coordinate on ship array and increase hit total', () => {
   expect(Ship(3).hit(2)).toStrictEqual({
     hits: 1,
-    shipArr: [undefined, undefined, 'X'],
+    shipArr: ['', '', 'X'],
     sunk: false,
   });
 });
