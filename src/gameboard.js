@@ -14,17 +14,49 @@ const Gameboard = () => {
   }
 
   const board = createArray(10, 10);
+  for (let i = 0; i < board.length; i += 1) {
+    board[i].fill('');
+  }
 
-  return { board };
+  const placeShip = (x, y, direction, length) => {
+    const ship = Ship(length);
+    board[x][y] = ship;
+
+    if (length > 1) {
+      let i = 1;
+      let nextCell;
+      if (direction === 'horizontal') {
+        nextCell = y;
+      } else if (direction === 'vertical') {
+        nextCell = x;
+      }
+      while (i < length) {
+        if (direction === 'horizontal') {
+          // let nextCell = y;
+          nextCell += 1;
+          board[x][nextCell] = ship;
+          i += 1;
+        } else if (direction === 'vertical') {
+          // let nextCell = x;
+          nextCell += 1;
+          board[nextCell][y] = ship;
+          i += 1;
+        }
+      }
+      i = 1;
+    }
+
+    return board[x][y];
+  };
+
+  return { board, placeShip };
 };
 
 const gameboard = Gameboard();
-console.log(gameboard);
 
-// const test = createArray(10, 10);
-// console.log(test);
+gameboard.placeShip(0, 0, 'vertical', 3);
 
-// createArray(10, 10);
+console.log(gameboard.board);
 
 // eslint-disable-next-line import/prefer-default-export
-export { Gameboard };
+export { Gameboard, gameboard };

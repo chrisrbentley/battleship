@@ -1,9 +1,9 @@
 const Ship = (length) => {
   let hits = 0;
   let sunk = false;
-  const shipArr = new Array(length); // if breaks later, use let
+  // const shipArr = new Array(length); // if breaks later, use let
 
-  shipArr.fill(`Ship ${length}`);
+  // shipArr.fill(`Ship ${length}`);
 
   const isSunk = () => {
     if (hits >= length) {
@@ -12,16 +12,17 @@ const Ship = (length) => {
     return sunk;
   };
 
-  const hit = (cords) => {
-    shipArr[cords] = 'X';
+  const hit = () => {
+    // cords ^
+    // shipArr[cords] = 'X';
     hits += 1;
     isSunk();
-    return { shipArr, hits, sunk };
+    return { hits, sunk }; // shipArr maybe
   };
 
   return {
     // length, // same as hits
-    shipArr,
+    // shipArr, ***
     hit,
     sunk, // maybe don't need this
     // hits, // maybe does not need to be exposed. (???)
