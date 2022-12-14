@@ -49,12 +49,24 @@ const Gameboard = () => {
     return board[x][y];
   };
 
-  return { board, placeShip };
+  const receiveAttack = (x, y) => {
+    if (typeof board[x][y] !== 'object') {
+      board[x][y] = 'miss';
+    } else if (typeof board[x][y] === 'object') {
+      board[x][y].hit();
+    }
+
+    return board[x][y];
+  };
+
+  return { board, placeShip, receiveAttack };
 };
 
 const gameboard = Gameboard();
 
-gameboard.placeShip(0, 0, 'vertical', 3);
+// gameboard.placeShip(0, 0, 'vertical', 2);
+
+// gameboard.receiveAttack(0, 1);
 
 console.log(gameboard.board);
 

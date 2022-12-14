@@ -18,6 +18,18 @@ test('gameboard can place ship at specific coordinates by calling Ship()', () =>
   );
 });
 
-/* test('receiveAttack() takes coordinates, checks if a ship was there and if so registers a hit', () => {
-  expect(Gameboard().receiveAttack(0, 3)).toBe();
-}); */
+describe('receiveAttack works hits a ship if cell has a ship, otherwise marks with an "x" ', () => {
+  // maybe use mocks instead?
+
+  const shipOne = Ship(1);
+  gameboard.board[0][5] = shipOne;
+  gameboard.receiveAttack(0, 6);
+
+  test('if attacked cell does not have a ship, mark it with "miss" ', () => {
+    expect(gameboard.board[0][6]).toBe('miss');
+  });
+
+  test('if cell has a ship, hit()', () => {
+    expect(gameboard.board[0][5].hit());
+  });
+});
