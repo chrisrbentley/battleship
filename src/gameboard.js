@@ -32,12 +32,10 @@ const Gameboard = () => {
       }
       while (i < length) {
         if (direction === 'horizontal') {
-          // let nextCell = y;
           nextCell += 1;
           board[x][nextCell] = ship;
           i += 1;
         } else if (direction === 'vertical') {
-          // let nextCell = x;
           nextCell += 1;
           board[nextCell][y] = ship;
           i += 1;
@@ -53,7 +51,7 @@ const Gameboard = () => {
     if (typeof board[x][y] !== 'object') {
       board[x][y] = 'miss';
     } else if (typeof board[x][y] === 'object') {
-      board[x][y].hit();
+      return board[x][y].hit();
     }
 
     return board[x][y];
@@ -64,9 +62,8 @@ const Gameboard = () => {
 
 const gameboard = Gameboard();
 
-// gameboard.placeShip(0, 0, 'vertical', 2);
-
-// gameboard.receiveAttack(0, 1);
+gameboard.placeShip(0, 0, 'vertical', 1);
+gameboard.receiveAttack(0, 0);
 
 console.log(gameboard.board);
 
