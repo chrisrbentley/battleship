@@ -5,13 +5,14 @@ const Ship = (length) => {
   const isSunk = () => {
     if (hits >= length) {
       sunk = true;
-      console.log('sunk!');
+      console.log('sunk!!!');
     }
     return sunk;
   };
 
   const hit = () => {
     hits += 1;
+    console.log('hit!!!');
     isSunk();
     return { hits, sunk }; // shipArr maybe
   };

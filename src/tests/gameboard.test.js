@@ -11,33 +11,40 @@ test('should create 2D array', () => {
 });
 
 test('gameboard can place ship at specific coordinates by calling Ship()', () => {
-  expect(Gameboard().placeShip(0, 0, 'horizontal', 3)).toEqual(
-    expect.objectContaining({
-      sunk: false,
-    }),
-  );
+  const expected = {
+    cellHit: false,
+    ship: {
+      hits: 0,
+    },
+  };
+
+  expect(Gameboard().placeShip(0, 0, 'horizontal', 1)).toMatchObject(expected);
 });
 
 describe('receiveAttack works hits a ship if cell has a ship, otherwise marks with "miss". Then checks if all ships are sunk. ', () => {
-  // maybe use mocks instead?
-
   const testShip = Ship(1);
   const mockPlaceShip = jest.fn();
 
-  const attackedTestShip = {
-    hits: 1,
-    sunk: true,
+  mockPlaceShip.mockReturnValue((gameboard.board[5][3].ship = testShip));
+
+  test('should mark cell with cellHit: true ', () => {
+    expect(gameboard.receiveAttack(5, 1)).toEqual(
+      expect.objectContaining({
+        cellHit: true,
+      }),
+    );
+  });
+
+  const testCellAttacked = {
+    cellHit: true,
+    ship: {
+      hits: 0,
+    },
   };
 
-  mockPlaceShip.mockReturnValue((gameboard.board[5][3] = testShip));
-
-  test('should hit an empty cell and mark it with "miss" ', () => {
-    expect(gameboard.receiveAttack(5, 1)).toBe('miss');
-  });
-
   test('should call hit() on ship if cell has a ship ', () => {
-    expect(gameboard.receiveAttack(5, 3)).toMatchObject(attackedTestShip);
+    expect(gameboard.receiveAttack(5, 3)).toMatchObject(testCellAttacked);
   });
-
-  // test('should report whether or not all ships are sunk after attack.', () => {});
 });
+
+// test('should report whether or not all ships are sunk.', () => {});

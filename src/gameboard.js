@@ -14,13 +14,19 @@ const Gameboard = () => {
   }
 
   const board = createArray(10, 10);
+
+  const Cell = (cellHit, ship) => ({ cellHit, ship });
+
   for (let i = 0; i < board.length; i += 1) {
-    board[i].fill('');
+    for (let j = 0; j < board[i].length; j += 1) {
+      const cell = Cell(false, undefined);
+      board[i][j] = cell;
+    }
   }
 
   const placeShip = (x, y, direction, length) => {
     const ship = Ship(length);
-    board[x][y] = ship;
+    board[x][y].ship = ship;
 
     if (length > 1) {
       let i = 1;
@@ -33,11 +39,11 @@ const Gameboard = () => {
       while (i < length) {
         if (direction === 'horizontal') {
           nextCell += 1;
-          board[x][nextCell] = ship;
+          board[x][nextCell].ship = ship;
           i += 1;
         } else if (direction === 'vertical') {
           nextCell += 1;
-          board[nextCell][y] = ship;
+          board[nextCell][y].ship = ship;
           i += 1;
         }
       }
@@ -48,10 +54,12 @@ const Gameboard = () => {
   };
 
   const receiveAttack = (x, y) => {
-    if (typeof board[x][y] !== 'object') {
-      board[x][y] = 'miss';
-    } else if (typeof board[x][y] === 'object') {
-      return board[x][y].hit();
+    if (board[x][y].ship === undefined) {
+      board[x][y].cellHit = true;
+    } else if (board[x][y].ship !== undefined) {
+      board[x][y].cellHit = true;
+      board[x][y].ship.hit();
+      return board[x][y];
     }
 
     return board[x][y];
@@ -60,10 +68,16 @@ const Gameboard = () => {
   return { board, placeShip, receiveAttack };
 };
 
+// let allSunk = false;
+
+// const allAreSunk = () => {};
+
 const gameboard = Gameboard();
 
-gameboard.placeShip(0, 0, 'vertical', 1);
+gameboard.placeShip(0, 0, 'horizontal', 1);
 gameboard.receiveAttack(0, 0);
+
+console.log(gameboard.board[0][0]);
 
 console.log(gameboard.board);
 
