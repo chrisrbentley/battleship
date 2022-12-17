@@ -1,2 +1,0 @@
-(()=>{"use strict";(()=>{const t=function t(e){const l=new Array(e||0);let n=e;if(arguments.length>1){const o=Array.prototype.slice.call(arguments,1);for(;n--;)l[e-1-n]=t.apply(this,o)}return l}(10,10);for(let e=0;e<t.length;e+=1)for(let l=0;l<t[e].length;l+=1){const n={cellHit:!1,ship:void 0};t[e][l]=n}})()})();
-//# sourceMappingURL=main.js.map

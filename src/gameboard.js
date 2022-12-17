@@ -101,7 +101,7 @@ const Gameboard = () => {
   };
 };
 
-const gameboard = Gameboard();
+// const gameboard = Gameboard();
 
 // eslint-disable-next-line import/prefer-default-export
-export { Gameboard, gameboard };
+export { Gameboard };

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { Gameboard, gameboard } from '../gameboard';
+import { Gameboard } from '../gameboard';
 
 test('should create 2D array', () => {
   expect(Gameboard().board).toHaveLength(10);
