@@ -1,6 +1,9 @@
+/* eslint-disable no-continue */
 import { Ship } from './ship';
 
 const Gameboard = () => {
+  let allSunk = false;
+
   function createArray(length) {
     const arr = new Array(length || 0);
     let i = length;
@@ -53,6 +56,27 @@ const Gameboard = () => {
     return board[x][y];
   };
 
+  // let sunkShips = 0;
+
+  const allShipsSunk = () => {
+    let counter = 0;
+    for (let i = 0; i < board.length; i += 1) {
+      for (let j = 0; j < board[i].length; j += 1) {
+        // console.log(board[i][j]);
+        if (typeof board[i][j].ship === 'object') {
+          if (board[i][j].ship.sunk === true) {
+            counter += 1;
+            if (counter === 17) {
+              allSunk = true;
+              return allSunk;
+            }
+          } else break;
+        } else continue;
+      }
+    }
+    return allSunk;
+  };
+
   const receiveAttack = (x, y) => {
     if (board[x][y].ship === undefined) {
       board[x][y].cellHit = true;
@@ -61,25 +85,23 @@ const Gameboard = () => {
       board[x][y].ship.hit();
       return board[x][y];
     }
+    allShipsSunk();
 
     return board[x][y];
   };
 
-  return { board, placeShip, receiveAttack };
+  return {
+    board,
+    placeShip,
+    receiveAttack,
+    allShipsSunk, // maybe doesn't need to be exposed and can remove tests.
+    get allSunk() {
+      return allSunk;
+    },
+  };
 };
 
-// let allSunk = false;
-
-// const allAreSunk = () => {};
-
 const gameboard = Gameboard();
-
-gameboard.placeShip(0, 0, 'horizontal', 1);
-gameboard.receiveAttack(0, 0);
-
-console.log(gameboard.board[0][0]);
-
-console.log(gameboard.board);
 
 // eslint-disable-next-line import/prefer-default-export
 export { Gameboard, gameboard };
