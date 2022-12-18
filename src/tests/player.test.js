@@ -4,8 +4,8 @@ import { Player } from '../player';
 
 describe('Player can access enemy gameboard and attack it.', () => {
   test('should attack correct coords on enemy gameboard', () => {
-    const playerOne = Player('One');
-    const playerTwo = Player('Two');
+    const playerOne = Player('One', false);
+    const playerTwo = Player('Two', true);
 
     playerTwo.gameboard.placeShip(0, 0, 'vertical', 3);
 

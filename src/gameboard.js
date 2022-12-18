@@ -56,13 +56,10 @@ const Gameboard = () => {
     return board[x][y];
   };
 
-  // let sunkShips = 0;
-
   const allShipsSunk = () => {
     let counter = 0;
     for (let i = 0; i < board.length; i += 1) {
       for (let j = 0; j < board[i].length; j += 1) {
-        // console.log(board[i][j]);
         if (typeof board[i][j].ship === 'object') {
           if (board[i][j].ship.sunk === true) {
             counter += 1;
@@ -100,8 +97,6 @@ const Gameboard = () => {
     },
   };
 };
-
-// const gameboard = Gameboard();
 
 // eslint-disable-next-line import/prefer-default-export
 export { Gameboard };
