@@ -1,0 +1,17 @@
+main {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  margin: 20px 40px;
+}
+
+.cell {
+  border: black 1px solid;
+  height: 50px;
+  width: 50px;
+}

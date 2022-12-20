@@ -6,11 +6,13 @@ const Ship = (length) => {
     if (hits >= length) {
       sunk = true;
     }
+    console.log('sunk!!!');
     return sunk;
   };
 
   const hit = () => {
     hits += 1;
+    console.log('hit!!!');
     isSunk();
     return { hits, sunk };
   };
