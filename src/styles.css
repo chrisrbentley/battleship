@@ -15,3 +15,11 @@ main {
   height: 50px;
   width: 50px;
 }
+
+.hit {
+  background-color: red;
+}
+
+.miss {
+  background-color: gray;
+}

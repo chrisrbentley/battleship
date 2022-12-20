@@ -25,7 +25,7 @@ describe('receiveAttack works hits a ship if cell has a ship, otherwise marks wi
   testBoard.placeShip(5, 3, 'vertical', 1);
 
   test('should mark cell with cellHit: true ', () => {
-    expect(testBoard.receiveAttack(5, 1)).toEqual(
+    expect(testBoard.receiveAttack(5, 1)).toStrictEqual(
       expect.objectContaining({
         cellHit: true,
       }),

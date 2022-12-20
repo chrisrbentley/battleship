@@ -1,5 +1,13 @@
 const main = document.querySelector('main');
 
+const updateDOM = (player, row, col, cell) => {
+  if (player.gameboard.board[row][col].result === 'miss') {
+    cell.classList.add('miss');
+  } else {
+    cell.classList.add('hit');
+  }
+};
+
 const handleInput = (cell, player, enemy) => {
   enemy.attackEnemy(
     player.gameboard,
@@ -7,6 +15,7 @@ const handleInput = (cell, player, enemy) => {
     Number(cell.dataset.col),
     console.log(player.gameboard.board),
   );
+  updateDOM(player, Number(cell.dataset.row), Number(cell.dataset.col), cell);
 };
 
 const renderBoard = (player, board, enemy) => {
@@ -21,9 +30,13 @@ const renderBoard = (player, board, enemy) => {
       cell.className = 'cell';
       boardContainer.appendChild(cell);
       if (player.isAI === true) {
-        cell.addEventListener('click', () => {
-          handleInput(cell, player, enemy);
-        });
+        cell.addEventListener(
+          'click',
+          () => {
+            handleInput(cell, player, enemy);
+          },
+          { once: true },
+        );
       }
     }
   }

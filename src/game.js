@@ -27,7 +27,6 @@ const start = document.querySelector('#start');
 const nameInput = document.querySelector('#name');
 start.addEventListener('click', (e) => {
   const name = nameInput.value;
-  // const game = Game(name);
   Game(name);
   start.remove();
   nameInput.remove();

@@ -18,7 +18,7 @@ const Gameboard = () => {
 
   const board = createArray(10, 10);
 
-  const Cell = (cellHit, ship) => ({ cellHit, ship });
+  const Cell = (cellHit, result, ship) => ({ cellHit, ship, result });
 
   for (let i = 0; i < board.length; i += 1) {
     for (let j = 0; j < board[i].length; j += 1) {
@@ -77,9 +77,12 @@ const Gameboard = () => {
   const receiveAttack = (x, y) => {
     if (board[x][y].ship === undefined) {
       board[x][y].cellHit = true;
+      board[x][y].result = 'miss';
     } else if (board[x][y].ship !== undefined) {
       board[x][y].cellHit = true;
+      board[x][y].result = 'hit';
       board[x][y].ship.hit();
+
       return board[x][y];
     }
     allShipsSunk();
