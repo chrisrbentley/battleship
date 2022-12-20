@@ -1,6 +1,15 @@
 const main = document.querySelector('main');
 
-const renderBoard = (board) => {
+const handleInput = (cell, player, enemy) => {
+  enemy.attackEnemy(
+    player.gameboard,
+    Number(cell.dataset.row),
+    Number(cell.dataset.col),
+    console.log(player.gameboard.board),
+  );
+};
+
+const renderBoard = (player, board, enemy) => {
   const boardContainer = document.createElement('div');
   boardContainer.className = 'board';
   main.appendChild(boardContainer);
@@ -11,6 +20,11 @@ const renderBoard = (board) => {
       cell.dataset.col = col;
       cell.className = 'cell';
       boardContainer.appendChild(cell);
+      if (player.isAI === true) {
+        cell.addEventListener('click', () => {
+          handleInput(cell, player, enemy);
+        });
+      }
     }
   }
 };
