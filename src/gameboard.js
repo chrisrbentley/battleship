@@ -78,14 +78,16 @@ const Gameboard = () => {
     if (board[x][y].ship === undefined) {
       board[x][y].cellHit = true;
       board[x][y].result = 'miss';
+      allShipsSunk();
     } else if (board[x][y].ship !== undefined) {
       board[x][y].cellHit = true;
       board[x][y].result = 'hit';
       board[x][y].ship.hit();
+      allShipsSunk();
 
       return board[x][y];
     }
-    allShipsSunk();
+    // allShipsSunk();
 
     return board[x][y];
   };

@@ -1,7 +1,7 @@
-import { renderBoard } from './dom';
+import { renderBoards, updateGrid } from './dom';
 import { Player } from './player';
 
-const Game = (playerName) => {
+function game(playerName) {
   const playerOne = Player(playerName, false);
   const computer = Player('Computer', true);
 
@@ -17,21 +17,52 @@ const Game = (playerName) => {
   computer.gameboard.placeShip(5, 8, 'vertical', 3);
   computer.gameboard.placeShip(7, 4, 'vertical', 2);
 
-  renderBoard(playerOne, playerOne.gameboard.board, computer);
-  renderBoard(computer, computer.gameboard.board, playerOne);
+  renderBoards(playerOne);
+  renderBoards(computer);
+
+  const cpuCells = document.querySelectorAll('.enemy-cell');
+
+  cpuCells.forEach((cell) => {
+    cell.addEventListener(
+      'click',
+      () => {
+        playerOne.attackEnemy(
+          computer.gameboard,
+          Number(cell.dataset.row),
+          Number(cell.dataset.col),
+        );
+        updateGrid(
+          computer.gameboard,
+          Number(cell.dataset.row),
+          Number(cell.dataset.col),
+          cell,
+          true,
+        );
+        console.log(computer.gameboard.allSunk);
+        if (computer.gameboard.allSunk === false) {
+          computer.attackEnemy(playerOne.gameboard);
+          console.log(computer.row, computer.col);
+          const playerCell = document.querySelector(
+            `.player-cell[data-row="${computer.row}"][data-col="${computer.col}"]`,
+          );
+          console.log(playerCell);
+
+          updateGrid(
+            playerOne.gameboard,
+            computer.row,
+            computer.col,
+            playerCell,
+          );
+        } else {
+          console.log('Game over');
+        }
+      },
+      { once: true },
+    );
+  });
 
   console.log(playerOne, computer);
-};
-
-const start = document.querySelector('#start');
-const nameInput = document.querySelector('#name');
-start.addEventListener('click', (e) => {
-  const name = nameInput.value;
-  Game(name);
-  start.remove();
-  nameInput.remove();
-  e.preventDefault();
-});
+}
 
 // eslint-disable-next-line import/prefer-default-export
-export { Game };
+export { game };

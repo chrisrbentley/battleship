@@ -2,11 +2,15 @@ import { Gameboard } from './gameboard';
 
 const Player = (name, isAI) => {
   const gameboard = Gameboard();
+  let row;
+  let col;
 
   const attackEnemy = (enemyBoard, x, y) => {
-    let row = x;
-    let col = y;
+    row = x;
+    col = y;
+
     console.log('attacking');
+
     if (isAI === true) {
       row = Math.floor(Math.random() * 10);
       col = Math.floor(Math.random() * 10);
@@ -17,6 +21,8 @@ const Player = (name, isAI) => {
         }
       }
       enemyBoard.receiveAttack(row, col);
+      console.log(row, col);
+      console.log('AI is attacking');
     } else {
       enemyBoard.receiveAttack(row, col);
     }
@@ -29,6 +35,12 @@ const Player = (name, isAI) => {
     gameboard,
     attackEnemy,
     isAI,
+    get row() {
+      return row;
+    },
+    get col() {
+      return col;
+    },
   };
 };
 
